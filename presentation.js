@@ -1,4 +1,5 @@
 var readline = require('readline');
+var service = require('./service');
 
 function start() {
     console.log('1. Rechercher un collègue par nom');
@@ -18,13 +19,28 @@ function choix() {
 
         console.log(`Vous avez saisi : ${saisie}`);
         if (saisie == 1) {
-            console.log('>> Recherche en cours du nom xxx');
+            console.log('>> Recherche en cours du nom : ');
+            choiceByName ();
+
         } else if (saisie == 99) {
             console.log('Aurevoir');
+            rl.close(); // Pas de saisie possible
+
         }
-        rl.close(); // Pas de saisie possible
+
+
 })
 }
+
+function choiceByName () 
+{
+    rl.question('Saisir le nom : ', function (saisie) {
+        service.rechercherColleguesParNom(saisie, collegue => console.log (collegue));
+        choix ();
+    });
+}
+
+
 
     exports.menu = start;
     exports.menuChoix = choix;
